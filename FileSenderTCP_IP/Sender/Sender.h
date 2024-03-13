@@ -25,12 +25,12 @@ class Sender
 {
 private:
 	WSADATA wsa;
-	
+
 	// to socket
 	string ip;
 	int port;
 	sockaddr_in recv_info;
-	
+
 	// from socket
 	int send_socket;
 
@@ -38,13 +38,13 @@ private:
 	string file_name;
 	string file_path;
 	vector<bite_t> file_bin;
-	
-	
+
+
 
 public:
 
 	Sender(string file);
-	
+
 	~Sender();
 
 	void set_file(string file_path);
@@ -56,8 +56,6 @@ public:
 private:
 
 	void _connect();
-
-	void _serialise_file();
 
 	int _get_file_size();
 
@@ -73,11 +71,10 @@ private:
 
 	void _send_file_bin();
 
-// tmp
+	// tmp
 
 public:
 
 	void show_buffer();
 
 };
-

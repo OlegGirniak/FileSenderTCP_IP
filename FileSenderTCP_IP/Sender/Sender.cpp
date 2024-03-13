@@ -5,7 +5,7 @@
 
 
 Sender::Sender(string file)
-	: 
+	:
 	wsa{ 0 },
 	port{},
 	send_socket{},
@@ -33,7 +33,7 @@ void Sender::send_file()
 {
 	_send_file_name();
 	_send_file_size();
-	//_send_file_bin();
+	_send_file_bin();
 
 	cout << "Messages is sent" << endl;
 }
@@ -48,34 +48,6 @@ void Sender::set_ip_port(string ip, int port)
 	recv_info.sin_addr.s_addr = inet_addr(ip.c_str());
 
 	_connect();
-}
-
-void Sender::_serialise_file()
-{
-	/*_set_file_name();
-
-	buffer.push_back('[');
-
-	for (auto ch : file_name)
-		buffer.push_back(ch);
-
-	buffer.push_back(']');
-	buffer.push_back('[');
-	
-	string file_size_str = std::to_string(_get_file_size());
-
-	for (auto ch : file_size_str)
-		buffer.push_back(ch);
-
-	buffer.push_back(']');
-	buffer.push_back('[');
-
-	_read_file_in_bin();
-
-	for (auto ch : file_bin)
-		buffer.push_back(ch);
-
-	buffer.push_back(']');*/
 }
 
 int Sender::_get_file_size()
@@ -119,12 +91,6 @@ void Sender::_read_file_in_bin()
 	file.read(file_bin.data(), size);
 
 	file.close();
-
-	/*std::ofstream file_o("filename.png", std::ios::out | std::ios::binary);
-
-	file_o.write(file_bin.data(), file_bin.size());
-
-	file.close();*/
 }
 
 void Sender::_create_socket()
@@ -166,5 +132,3 @@ void Sender::show_buffer()
 
 	cout << endl;
 }
-
-

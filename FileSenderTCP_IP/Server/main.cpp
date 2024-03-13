@@ -38,9 +38,6 @@ int file_size{};
 
 vector<bite_t> file_bin;
 
-mutex recv_mutex;
-
-
 void wsa_start()
 {
     assert(!(WSAStartup(MAKEWORD(2, 2), &wsa)) && "Couldn't init wsa");
@@ -80,16 +77,23 @@ void recv_file_size()
 
     recv(client_socket, file_size_buffer, 8, 0);
 
-    string file_size_str(file_size_buffer);
-
-    file_size = std::stoi(file_size_str);
+    file_size = std::stoi(string(file_size_buffer));
 
     cout << "file size: " << file_size << endl;
 }
 
 void recv_file_bin()
 {
+    file_bin.resize(file_size);
 
+    recv(client_socket, file_bin.data(), file_size, 0);
+
+    for (auto& ch : file_bin)
+    {
+        cout << ch;
+    }
+
+    cout << endl;
 }
 
 void recv_file()
@@ -101,6 +105,7 @@ void recv_file()
 
     recv_file_name();
     recv_file_size();
+    recv_file_bin();
 }
 
 
