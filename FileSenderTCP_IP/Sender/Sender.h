@@ -35,7 +35,6 @@ private:
 	int send_socket;
 
 	// file info
-	vector<bite_t> buffer;
 	string file_name;
 	string file_path;
 	vector<bite_t> file_bin;
@@ -56,17 +55,23 @@ public:
 
 private:
 
+	void _connect();
+
 	void _serialise_file();
 
 	int _get_file_size();
 
 	void _set_file_name();
 
-	void _connect();
-
 	void _read_file_in_bin();
 
 	void _create_socket();
+
+	void _send_file_size();
+
+	void _send_file_name();
+
+	void _send_file_bin();
 
 // tmp
 

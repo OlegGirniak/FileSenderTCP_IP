@@ -31,9 +31,9 @@ void Sender::set_file(string path)
 
 void Sender::send_file()
 {
-	_serialise_file();
-
-	assert((send(send_socket, buffer.data(), buffer.size(), 0)) != -1);
+	_send_file_name();
+	_send_file_size();
+	//_send_file_bin();
 
 	cout << "Messages is sent" << endl;
 }
@@ -52,7 +52,7 @@ void Sender::set_ip_port(string ip, int port)
 
 void Sender::_serialise_file()
 {
-	_set_file_name();
+	/*_set_file_name();
 
 	buffer.push_back('[');
 
@@ -75,7 +75,7 @@ void Sender::_serialise_file()
 	for (auto ch : file_bin)
 		buffer.push_back(ch);
 
-	buffer.push_back(']');
+	buffer.push_back(']');*/
 }
 
 int Sender::_get_file_size()
@@ -132,9 +132,36 @@ void Sender::_create_socket()
 	assert(!((send_socket = socket(AF_INET, SOCK_STREAM, 0)) == SOCKET_ERROR) && ("Couldn't create socket"));
 }
 
+void Sender::_send_file_size()
+{
+	string file_size_str = std::to_string(_get_file_size());
+
+	assert((send(send_socket, file_size_str.c_str(), file_size_str.size(), 0)) != -1);
+
+	cout << "+ file size is sended" << endl;
+}
+
+void Sender::_send_file_name()
+{
+	_set_file_name();
+
+	assert((send(send_socket, file_name.c_str(), file_name.size(), 0)) != -1);
+
+	cout << "+ file name is sended" << endl;
+}
+
+void Sender::_send_file_bin()
+{
+	_read_file_in_bin();
+
+	assert((send(send_socket, file_bin.data(), file_bin.size(), 0)) != -1);
+
+	cout << "+ file bin is sended" << endl;
+}
+
 void Sender::show_buffer()
 {
-	for (auto ch : buffer)
+	for (auto ch : file_bin)
 		cout << ch;
 
 	cout << endl;
