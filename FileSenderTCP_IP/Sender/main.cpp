@@ -4,7 +4,7 @@
 
 int main()
 {
-	Sender sender("example.png");
+	Sender sender("example.docx");
 
 	sender.set_ip_port("127.0.0.1", 2222);
 
